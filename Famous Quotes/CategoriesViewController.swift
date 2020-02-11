@@ -10,7 +10,7 @@ import UIKit
 
 class CategoriesViewController: UITableViewController {
 
-    var categories = [[String: String]]()
+    var categories = [(String, String)]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class CategoriesViewController: UITableViewController {
     func parse(json: JSON) {
         let contents = json["contents"].dictionary
         for (key, subJson) in contents!["categories"]! {
-            categories.append([key: subJson.stringValue])
+            categories.append((key, subJson.stringValue))
         }
     }
 
@@ -40,6 +40,18 @@ class CategoriesViewController: UITableViewController {
         let alert = UIAlertController(title: "Loading Error", message: "There was a problem loading the quotation categories", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categories.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let category = categories[indexPath.row]
+        cell.textLabel?.text = category.0
+        cell.detailTextLabel?.text = category.1
+        return cell
     }
 }
 
