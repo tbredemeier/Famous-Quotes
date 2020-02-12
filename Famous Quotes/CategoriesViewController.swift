@@ -11,33 +11,36 @@ import UIKit
 class CategoriesViewController: UITableViewController {
 
     var categories = [(String, String)]()
+    let prefix = "https://quotes.rest/qod"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Quotation Categories"
-        let query = "https://quotes.rest/qod/categories.json"
-        if let url = URL(string: query) {
-            if let data = try? Data(contentsOf: url) {
-                let json = try! JSON(data: data)
-                let success = json["success"].dictionary
-                if success!["total"]! > 0 {
-                    parse(json: json)
-                    return
+        let query = "\(prefix)/categories.json"
+        if let json = makeQuery(query: query) {
+            let success = json["success"].dictionary
+            if success!["total"]! > 0 {
+                let contents = json["contents"].dictionary
+                for (key, subJson) in contents!["categories"]! {
+                    categories.append((key, subJson.stringValue))
                 }
             }
         }
-        loadError()
     }
 
-    func parse(json: JSON) {
-        let contents = json["contents"].dictionary
-        for (key, subJson) in contents!["categories"]! {
-            categories.append((key, subJson.stringValue))
+    func makeQuery(query: String) -> JSON? {
+        if let url = URL(string: query) {
+            if let data = try? Data(contentsOf: url) {
+                let json = try! JSON(data: data)
+                return json
+            }
         }
+        loadError()
+        return nil
     }
 
     func loadError() {
-        let alert = UIAlertController(title: "Loading Error", message: "There was a problem loading the quotation categories", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Loading Error", message: "There was a problem loading the data", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
     }
@@ -52,6 +55,26 @@ class CategoriesViewController: UITableViewController {
         cell.textLabel?.text = category.0
         cell.detailTextLabel?.text = category.1
         return cell
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let dvc = segue.destination as! QuoteViewController
+        let index = (tableView.indexPathForSelectedRow?.row)!
+        let category = categories[index].0
+        let query = "\(prefix).json?category=\(category)"
+        if let json = makeQuery(query: query) {
+            let success = json["success"].dictionary
+            if success!["total"]! > 0 {
+                let contents = json["contents"].dictionary
+                for (_, subJson) in contents!["quotes"]! {
+                    let title = subJson["title"].stringValue
+                    let quote = subJson["quote"].stringValue
+                    let author = subJson["author"].stringValue
+                    let data = ["title": title, "quote": quote, "author": author]
+                    dvc.data = data
+                }
+            }
+        }
     }
 }
 

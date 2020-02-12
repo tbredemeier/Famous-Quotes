@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,6 +39,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="xSz-EO-SI4" kind="show" id="4nF-o4-oF2"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -50,6 +54,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VGn-mw-PLE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="947.82608695652186" y="138.61607142857142"/>
+        </scene>
+        <!--Quote View Controller-->
+        <scene sceneID="5xP-G4-X7u">
+            <objects>
+                <viewController id="xSz-EO-SI4" customClass="QuoteViewController" customModule="Famous_Quotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bSg-4r-bWM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emH-hn-w28">
+                                <rect key="frame" x="57" y="218" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="GKU-R7-ED1"/>
+                                    <constraint firstAttribute="height" constant="300" id="Ses-eK-9lM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpH-62-6My">
+                                <rect key="frame" x="57" y="551" width="300" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="akM-gf-agK"/>
+                                    <constraint firstAttribute="width" constant="300" id="w47-kp-gD9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUk-ft-Pzb">
+                                <rect key="frame" x="57" y="142" width="300" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="8c2-qS-Dnd"/>
+                                    <constraint firstAttribute="height" constant="50" id="HSE-cz-RCc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="YUk-ft-Pzb" firstAttribute="centerX" secondItem="bSg-4r-bWM" secondAttribute="centerX" id="1nD-0h-Vnp"/>
+                            <constraint firstItem="YUk-ft-Pzb" firstAttribute="top" secondItem="4HS-bI-SgF" secondAttribute="top" constant="54" id="Q71-ip-zaO"/>
+                            <constraint firstItem="emH-hn-w28" firstAttribute="top" secondItem="YUk-ft-Pzb" secondAttribute="bottom" constant="26" id="RHt-eh-iWD"/>
+                            <constraint firstItem="emH-hn-w28" firstAttribute="centerX" secondItem="bSg-4r-bWM" secondAttribute="centerX" id="UkK-aD-lJI"/>
+                            <constraint firstItem="SpH-62-6My" firstAttribute="top" secondItem="emH-hn-w28" secondAttribute="bottom" constant="33" id="tRL-W8-FoS"/>
+                            <constraint firstItem="SpH-62-6My" firstAttribute="centerX" secondItem="bSg-4r-bWM" secondAttribute="centerX" id="uX9-qL-czD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4HS-bI-SgF"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eVj-8N-eld"/>
+                    <connections>
+                        <outlet property="authorLabel" destination="SpH-62-6My" id="Uba-yF-vfm"/>
+                        <outlet property="quoteLabel" destination="emH-hn-w28" id="lKn-oU-5h9"/>
+                        <outlet property="titleLabel" destination="YUk-ft-Pzb" id="8S4-ee-V03"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WWw-KD-YJG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1684" y="139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zMy-Sm-lfs">
